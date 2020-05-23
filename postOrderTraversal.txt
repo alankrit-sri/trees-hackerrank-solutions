@@ -1,0 +1,16 @@
+struct *Node
+{
+char data;
+Node *left;
+Node *right;
+}
+
+void postOrderTraversal( struct *root)
+{
+if(root==NULL)
+return ;
+
+preOrderTraversal(root->left);
+preOrderTraversal(root->right);
+printf(“%c ”,root->data);
+}

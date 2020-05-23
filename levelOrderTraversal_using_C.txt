@@ -1,0 +1,83 @@
+/* you only have to complete the function given below.  
+node is defined as 
+ 
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right; 
+};
+*/
+int QUEUE_COUNT=0;  // CHECKING ELEMENTS IN QUEUE
+/* 
+WHEN IMPLEMENTING ABSTRACT DATA TYPE USING LINKED LIST, KEEP TRACK RECORD OF NUMBER OF ELEMENTS USING A COUNTER, AS USING INDEX NUMBER NOT POSSIBLE IN LINKED LIST.
+*/
+struct QUEUE           /* MAKE STRUCTURE FOR QUEUE ABSTRACT DATA TYPE */
+{
+struct node *element;  /* DATA_TYPE IN QUEUE (FOR POINTER TO BE STORED, PUT STAR */
+struct QUEUE *next;    /* NODE FOR NEXT QUEUE ELEMENT */
+};
+ 
+struct QUEUE *front=NULL;  /* MAKE VARIABLE OF ABSTRACT DATA TYPE FOR FRONT */
+struct QUEUE *rear=NULL;   /* MAKE VARIABLE OF ABSTRACT DATA TYPE FOR TAIL */  
+ 
+int isEmpty()              /* CHECK QUEUE EMPTY USING COUNTER */
+{
+  if(QUEUE_COUNT==0)
+  return 1;
+  else 
+  return 0; 
+}
+void ENQUEUE(struct node *content)
+{
+    struct QUEUE *temp=(struct QUEUE*)malloc(sizeof(struct QUEUE));  /* USING DMA */
+    temp->element=content;   /* INSERTING 1st ELEMENT */
+    temp->next=NULL;         /* MAKING LAST NODE AS NULL */
+ 
+  if(isEmpty())              
+  {
+      front=temp;            /* FOR 1st ELEMENT, MODIFY BOTH FRONT & REAR */
+      rear=temp;             
+  }
+  else
+  {
+    rear->next=temp;         /* IF QUEUE IS NOT EMPTY, MODIFY ONLY REAR */
+    rear=temp;     
+  }
+  ++QUEUE_COUNT;             /* INCREMENT QUEUE COUNT */
+}
+ 
+void DEQUEUE()
+{
+  struct QUEUE *front_queue_node;
+  if(isEmpty())
+  return;
+ 
+  else 
+  {
+    front_queue_node=front;  /* DELETE NODE (ONLY) */
+    front=front->next;
+    free(front_queue_node);
+  }
+  --QUEUE_COUNT;             /* DECREMENT QUEUE COUNT */
+}
+ 
+    void levelOrder(struct node *root) 
+    {
+      if(root != NULL)
+      ENQUEUE(root);
+        
+      
+      while(!isEmpty())
+      {
+        if(front->element->left != NULL)
+        ENQUEUE(front->element->left);         // ADD TO QUEUE
+ 
+        if(front->element->right != NULL)
+        ENQUEUE(front->element->right);        // ADD TO QUEUE
+ 
+        printf("%d ",front->element->data);    // PRINT FROM QUEUE
+        DEQUEUE();                             // DELETE ELEMENT
+       
+     }
+    }

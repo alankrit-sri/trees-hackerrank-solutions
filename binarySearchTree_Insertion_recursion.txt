@@ -1,0 +1,49 @@
+/* you only have to complete the function given below.  
+node is defined as  
+ 
+struct node {
+    int data;
+    struct node *left;
+    struct node *right;
+};
+*/
+void insert_node(struct node* temp,struct node* new_node, int value)
+{
+  if(temp==NULL)      /*EXIT CONDITION OF RECURSIVE FUNCTION */
+  return;
+ 
+if(value<temp->data)  /* COMPARING DATA AGAINST EXISTING NODE DATA */ 
+    {
+        insert_node(temp->left,new_node,value);   /* RECURSIVE CALL */
+        if(temp->left==NULL)                     
+        temp->left=new_node;
+        /* IF PREVIOUS NODE IS NULL , THEN ATTACH NEW NODE */
+    }
+else 
+    {
+        insert_node(temp->right,new_node,value);  /* RECURSIVE CALL */
+        if(temp->right==NULL)               
+        temp->right=new_node;
+    }
+}
+ 
+/* FUNCTION TO BE  MODIFIED */
+ 
+struct node* insert( struct node* root, int data )
+ {
+    struct node *new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->left=NULL;   /* MAKING A NODE */
+    new_node->right=NULL;  
+    new_node->data=data;   /* INITIALIZING THE DATA */
+ 
+    if(root==NULL)         /* IF ROOT NODE IS NULL */
+    {
+        root=new_node;
+        return root;       /* RETURN ROOT NODE */
+    }
+    else 
+    insert_node(root,new_node,data);  
+    /* RECURSIVE FUNCTION FOR INSERTING NODE IN A TREE */
+ 
+    return root;
+}

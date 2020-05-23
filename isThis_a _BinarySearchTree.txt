@@ -1,0 +1,45 @@
+/* Hidden stub code will pass a root argument to the function below. Complete the function to solve the challenge. Hint: you may want to write one or more helper functions.  
+
+The Node struct is defined as follows:
+	struct Node {
+		int data;
+		Node* left;
+		Node* right;
+	}
+*/
+
+    int size=0;
+    int *ptr=(int*)malloc(sizeof(int));  
+
+/* USING DYNAMIC MEMORY ALLOCATION */
+
+/* <LEFT><NODE><RIGHT> TRAVERSAL */
+    void inOrderTraversal(Node *temp)
+    {
+        if(temp==NULL)
+        {
+            return;
+        }
+        inOrderTraversal(temp->left);
+        ptr=(int*)realloc(ptr,++size*sizeof(int));
+        ptr[size-1]=temp->data;
+        inOrderTraversal(temp->right);
+    }
+    
+     /*IT IS BECAUSE DATA OF PARENT NODE AND CHILD NODE IN BST CANNOT BE SAME. 
+RIGHT SIDE OF CHILD NODE ALWAYS NEED TO BE "GREATER THAN PARENT NODE", 
+"NOT GREATER THAN OR EQUAL TO" PARENT NODE */
+
+
+bool checkBST(Node* root) 
+    {  
+        int flag=1;                              /* LET'S ASSUME GIVEN BINARY TREE IS BST */
+        inOrderTraversal(root);
+        for(int i=0;i<size-1;i++)
+        {
+           if(ptr[i]>=ptr[i+1])    
+           flag=0;           /* IF CONDITION IS TRUE IT IS NOT BST */
+        }
+        free(ptr);           /* FREE MEMORY */
+        return flag;
+	}

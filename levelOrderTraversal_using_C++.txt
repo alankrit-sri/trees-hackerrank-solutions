@@ -1,0 +1,32 @@
+#include<queue>
+/*
+class Node {
+    public:
+        int data;
+        Node *left;
+        Node *right;
+        Node(int d) {
+            data = d;
+            left = NULL;
+            right = NULL;
+        }
+};
+*/
+queue <Node*>Q;
+    void levelOrder(Node *root) 
+    {
+      if(root != NULL)
+      Q.push(root);
+        
+      while(!Q.empty())
+      {
+        if(Q.front()->left != NULL)
+        Q.push(Q.front()->left);         // ADD TO QUEUE
+ 
+        if(Q.front()->right != NULL)
+        Q.push(Q.front()->right);        // ADD TO QUEUE
+ 
+        printf("%d ",Q.front()->data);   // PRINT FROM QUEUE
+        Q.pop();                         // DELETE ELEMENT
+      }
+    }
